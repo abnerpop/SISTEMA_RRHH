@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Recursos_H" Class="UsersDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-CMOK118\SQLEXPRESS;Initial Catalog=Recursos_H;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Recursos_HConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.empleado" Member="empleado">
+    <Type Name="empleado">
+      <Column Name="id_empleado" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="apellido" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="dpi" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="nit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="edad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nacionalidad" Type="System.String" DbType="VarChar(45)" CanBeNull="true" />
+      <Column Name="fecha_nacimiento" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="telefono" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sexo" Type="System.String" DbType="VarChar(9) NOT NULL" CanBeNull="false" />
+      <Column Name="estado_civil" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
+      <Column Name="id_jornada" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_salario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_horario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_departamento" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_empresa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_puesto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="departamento_empleado" Member="departamento" ThisKey="id_departamento" OtherKey="id_departamento" Type="departamento" IsForeignKey="true" />
+      <Association Name="puesto_empleado" Member="puesto" ThisKey="id_puesto" OtherKey="id_puesto" Type="puesto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.departamento" Member="departamento">
+    <Type Name="departamento">
+      <Column Name="id_departamento" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre_dep" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="funcion_dep" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
+      <Column Name="fecha_ingreso" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="departamento_empleado" Member="empleado" ThisKey="id_departamento" OtherKey="id_departamento" Type="empleado" />
+    </Type>
+  </Table>
+  <Table Name="dbo.puesto" Member="puesto">
+    <Type Name="puesto">
+      <Column Name="id_puesto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre_puesto" Type="System.String" DbType="VarChar(35) NOT NULL" CanBeNull="false" />
+      <Association Name="puesto_empleado" Member="empleado" ThisKey="id_puesto" OtherKey="id_puesto" Type="empleado" />
+    </Type>
+  </Table>
+</Database>
