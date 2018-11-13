@@ -1,5 +1,5 @@
 CREATE DATABASE  Recursos_H;
-use Recursos_H;
+
 CREATE TABLE empresa(
 id_empresa int PRIMARY KEY IDENTITY(1,1),
 nombre_empresa varchar(50),
@@ -25,19 +25,12 @@ tipo_salario varchar(30),
 cantidad_salario int
 );
 
-CREATE TABLE horario(
-id_horario int PRIMARY KEY IDENTITY(1,1),
-hora_entrada time,
-hora_salida time
-
-);
 
 
 CREATE TABLE departamento(
 id_departamento int PRIMARY KEY IDENTITY(1,1),
 nombre_dep varchar(45) not null,
 funcion_dep varchar(45) not null,
-fecha_ingreso date not null
 );
 
 
@@ -52,7 +45,6 @@ nombre_puesto varchar(35) not null
 
 CREATE TABLE empleado(
 id_empleado int PRIMARY KEY IDENTITY(1,1) ,
-
 nombre varchar(30) not null,
 apellido varchar(30) not null,
 dpi VARCHAR(15) not null,
@@ -67,7 +59,6 @@ estado_civil varchar(7),
 id_jornada int,
 
 id_salario int,
-id_horario int,
 id_departamento int,
 id_empresa int,
 id_puesto int,
@@ -76,7 +67,6 @@ id_puesto int,
 FOREIGN KEY(id_empresa) REFERENCES empresa(id_empresa),
 FOREIGN KEY(id_departamento) REFERENCES departamento(id_departamento),
 FOREIGN key(id_puesto) REFERENCES puesto(id_puesto),
-FOREIGN key(id_horario) REFERENCES horario(id_horario),
 FOREIGN key(id_jornada) REFERENCES jornada(id_jornada),
 FOREIGN KEY(id_salario) REFERENCES salario(id_salario)
 );
@@ -127,14 +117,14 @@ CREATE TABLE deducciones(
 
 
 -- insertar departamento
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Marketing','Anunciar','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Venta','Vender los productos','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Administracion','Administrar la empresa','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Finanzas','Control de dinero','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Gerencia','Gerenciar la empresa','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Comprar','Comprar productos','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Produccion','Producir mas productos','2018/02/03');
-insert into departamento(nombre_dep,funcion_dep,fecha_ingreso) values('Control Gestion','Gestionar','2018/02/03');
+insert into departamento(nombre_dep,funcion_dep) values('Marketing','Anunciar');
+insert into departamento(nombre_dep,funcion_dep) values('Venta','Vender los productos');
+insert into departamento(nombre_dep,funcion_dep) values('Administracion','Administrar la empresa');
+insert into departamento(nombre_dep,funcion_dep) values('Finanzas','Control de dinero');
+insert into departamento(nombre_dep,funcion_dep) values('Gerencia','Gerenciar la empresa');
+insert into departamento(nombre_dep,funcion_dep) values('Comprar','Comprar productos');
+insert into departamento(nombre_dep,funcion_dep) values('Produccion','Producir mas productos');
+insert into departamento(nombre_dep,funcion_dep) values('Control Gestion','Gestionar');
 
 
 -- insert puesto 
@@ -155,12 +145,6 @@ insert into jornada(tipo_jornadal,hora_jornada) values('Parcial','6:00');
 insert into jornada(tipo_jornadal,hora_jornada) values('Especial','12:30');
 insert into jornada(tipo_jornadal,hora_jornada) values('Extraordinaria','8:00');
 
--- insert usuario 
-
-insert into usuario(usser,pass,rol_usuario) values('Abner','12345','jefe');
-insert into usuario(usser,pass,rol_usuario) values('Abdiel','12345','Subjefe');
-insert into usuario(usser,pass,rol_usuario) values('Maria','12345','Secretaria');
-insert into usuario(usser,pass,rol_usuario) values('Lucia','12345','Consultora');
 
 -- insert salario 
 insert into salario(tipo_salario,cantidad_salario) values('Minimo',3000);
@@ -168,14 +152,7 @@ insert into salario(tipo_salario,cantidad_salario) values('Especial',5000);
 insert into salario(tipo_salario,cantidad_salario) values('Supersalario',9000);
 
 
--- insert into
-
-insert into horario(hora_entrada,hora_salida) values('7:00:00','6:00:00');
-insert into horario(hora_entrada,hora_salida) values('8:00:00','9:00:00');
-insert into horario(hora_entrada,hora_salida) values('6:00:00','12:00:00');
-
-
 -- insert empresa
-insert into empresa(nombre_empresa,NIT_empresa,Pais,poblacion,domicilio,telefono,correo) values('Lala-LA',32323,'Guatemala','Samayac','Canton',454554,'inglala@gmail.com');
+insert into empresa(nombre_empresa,NIT_empresa,Pais,poblacion,domicilio,telefono,correo) values('PEPSI',32323,'Guatemala','Samayac','Canton',454554,'pepsi_2018@gmail.com');
 
 

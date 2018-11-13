@@ -159,27 +159,53 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Style.css" />
-    <Content Include="Content\Style2.css" />
-    <Content Include="Content\Style3.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Estilos.css" />
     <Content Include="Global.asax" />
-    <Content Include="scripts\ai.0.22.9-build00167.js" />
-    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Imagenes\Boostrap_logo.svg" />
+    <Content Include="Imagenes\pinguino.jpg" />
+    <Content Include="Imagenes\recursos.jpg" />
+    <Content Include="Imagenes\seguridad.jpg" />
+    <Content Include="Imagenes\trigo.jpg" />
+    <Content Include="Imagenes\vela.jpg" />
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Models\UsersData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>UsersData.designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="scripts\jquery-3.3.1.js" />
-    <Content Include="scripts\jquery-3.3.1.min.js" />
-    <Content Include="scripts\jquery-3.3.1.slim.js" />
-    <Content Include="scripts\jquery-3.3.1.slim.min.js" />
-    <None Include="scripts\jquery.validate-vsdoc.js" />
-    <Content Include="scripts\jquery.validate.js" />
-    <Content Include="scripts\jquery.validate.min.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\.DS_Store" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="WebService1.asmx" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -189,15 +215,22 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Datos.vb" />
-    <Compile Include="Models\DepartaDatos.vb" />
-    <Compile Include="Models\PuestosDatos.vb" />
+    <Compile Include="Models\DepartamentoDatos.vb" />
+    <Compile Include="Models\DepartamentoLista.vb" />
+    <Compile Include="Models\DepartamentoMostrar.vb" />
+    <Compile Include="Models\EmpleadoDatos.vb" />
+    <Compile Include="Models\EmpleadoMostrar.vb" />
+    <Compile Include="Models\LoginDatos.vb" />
+    <Compile Include="Models\PuestoDatos.vb" />
+    <Compile Include="Models\ListasDatos.vb" />
+    <Compile Include="Models\PuestoMostrar.vb" />
+    <Compile Include="Models\ReporteEDMostrar.vb" />
+    <Compile Include="Models\ReporteFEMostrar.vb" />
     <Compile Include="Models\UsersData.designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UsersData.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\UsersDatos.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -216,6 +249,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="WebService1.asmx.vb">
+      <DependentUpon>WebService1.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -244,15 +281,25 @@
     </None>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\Empleado.vbhtml" />
-    <Content Include="Views\Home\Index.vbhtml" />
-    <Content Include="scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Home\Ingresar_Empleado.vbhtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Home\Login.vbhtml" />
-    <Content Include="Views\Home\Users.vbhtml" />
+    <Content Include="Views\Home\Menu.vbhtml" />
+    <Content Include="Views\Home\Fooder.vbhtml" />
+    <Content Include="Views\Home\Empleado.vbhtml" />
+    <Content Include="Views\Home\AgregarEmpleado.vbhtml" />
+    <Content Include="Views\Home\MostrarEmpleado.vbhtml" />
+    <Content Include="Views\Home\MostrarPuesto.vbhtml" />
+    <Content Include="Views\Home\Reporte.vbhtml" />
+    <Content Include="Views\Home\Catalogo.vbhtml" />
     <Content Include="Views\Home\Departamento.vbhtml" />
     <Content Include="Views\Home\Puesto.vbhtml" />
+    <Content Include="Views\Home\Nomina.vbhtml" />
+    <Content Include="Views\Home\MostrarDepartamento.vbhtml" />
+    <Content Include="Views\Home\AgregarDepartamento.vbhtml" />
+    <Content Include="Views\Home\AgregarPuesto.vbhtml" />
+    <Content Include="Views\Home\ReporteED.vbhtml" />
+    <Content Include="Views\Home\ReporteFE.vbhtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

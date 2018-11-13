@@ -1,15 +1,25 @@
-﻿Public Class UsersDatos
+﻿Public Class EmpleadoMostrar
+
 
     Dim userDC As New UsersDataDataContext
-    Function UserDatos() As List(Of UsersDatosModel)
+    Function EmpleadoDatos(buscar As String) As List(Of EmpleadoDatosModel)
 
-        Dim list As List(Of UsersDatosModel) = New List(Of UsersDatosModel)
+        Dim list As List(Of EmpleadoDatosModel) = New List(Of EmpleadoDatosModel)
         Dim query = From u In userDC.empleado
 
 
+
+        If buscar = "" Then
+            query = From u In userDC.empleado
+
+        Else
+            query = From u In userDC.empleado Where u.nombre = buscar Or u.apellido = buscar
+
+        End If
+
         Dim listData = query.ToList()
         For Each datos In listData
-            list.Add(New UsersDatosModel() With {
+            list.Add(New EmpleadoDatosModel() With {
             .NOMBRE = datos.nombre,
             .APELLIDO = datos.apellido,
             .DPI = datos.dpi,
@@ -29,7 +39,7 @@
 End Class
 
 
-Public Class UsersDatosModel
+Public Class EmpleadoDatosModel
 
     Public Property NOMBRE As String
     Public Property APELLIDO As String

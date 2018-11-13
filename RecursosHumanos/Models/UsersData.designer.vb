@@ -31,6 +31,18 @@ Partial Public Class UsersDataDataContext
   #Region "Definiciones de métodos de extensibilidad"
   Partial Private Sub OnCreated()
   End Sub
+  Partial Private Sub Insertpuesto(instance As puesto)
+    End Sub
+  Partial Private Sub Updatepuesto(instance As puesto)
+    End Sub
+  Partial Private Sub Deletepuesto(instance As puesto)
+    End Sub
+  Partial Private Sub Insertusuario(instance As usuario)
+    End Sub
+  Partial Private Sub Updateusuario(instance As usuario)
+    End Sub
+  Partial Private Sub Deleteusuario(instance As usuario)
+    End Sub
   Partial Private Sub Insertempleado(instance As empleado)
     End Sub
   Partial Private Sub Updateempleado(instance As empleado)
@@ -43,11 +55,23 @@ Partial Public Class UsersDataDataContext
     End Sub
   Partial Private Sub Deletedepartamento(instance As departamento)
     End Sub
-  Partial Private Sub Insertpuesto(instance As puesto)
+  Partial Private Sub Insertsalario(instance As salario)
     End Sub
-  Partial Private Sub Updatepuesto(instance As puesto)
+  Partial Private Sub Updatesalario(instance As salario)
     End Sub
-  Partial Private Sub Deletepuesto(instance As puesto)
+  Partial Private Sub Deletesalario(instance As salario)
+    End Sub
+  Partial Private Sub Insertjornada(instance As jornada)
+    End Sub
+  Partial Private Sub Updatejornada(instance As jornada)
+    End Sub
+  Partial Private Sub Deletejornada(instance As jornada)
+    End Sub
+  Partial Private Sub Insertempresa(instance As empresa)
+    End Sub
+  Partial Private Sub Updateempresa(instance As empresa)
+    End Sub
+  Partial Private Sub Deleteempresa(instance As empresa)
     End Sub
   #End Region
 	
@@ -76,6 +100,18 @@ Partial Public Class UsersDataDataContext
 		OnCreated
 	End Sub
 	
+	Public ReadOnly Property puesto() As System.Data.Linq.Table(Of puesto)
+		Get
+			Return Me.GetTable(Of puesto)
+		End Get
+	End Property
+	
+	Public ReadOnly Property usuario() As System.Data.Linq.Table(Of usuario)
+		Get
+			Return Me.GetTable(Of usuario)
+		End Get
+	End Property
+	
 	Public ReadOnly Property empleado() As System.Data.Linq.Table(Of empleado)
 		Get
 			Return Me.GetTable(Of empleado)
@@ -88,11 +124,314 @@ Partial Public Class UsersDataDataContext
 		End Get
 	End Property
 	
-	Public ReadOnly Property puesto() As System.Data.Linq.Table(Of puesto)
+	Public ReadOnly Property salario() As System.Data.Linq.Table(Of salario)
 		Get
-			Return Me.GetTable(Of puesto)
+			Return Me.GetTable(Of salario)
 		End Get
 	End Property
+	
+	Public ReadOnly Property jornada() As System.Data.Linq.Table(Of jornada)
+		Get
+			Return Me.GetTable(Of jornada)
+		End Get
+	End Property
+	
+	Public ReadOnly Property empresa() As System.Data.Linq.Table(Of empresa)
+		Get
+			Return Me.GetTable(Of empresa)
+		End Get
+	End Property
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.puesto")>  _
+Partial Public Class puesto
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _id_puesto As Integer
+	
+	Private _nombre_puesto As String
+	
+	Private _empleado As EntitySet(Of empleado)
+	
+    #Region "Definiciones de métodos de extensibilidad"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub Onid_puestoChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onid_puestoChanged()
+    End Sub
+    Partial Private Sub Onnombre_puestoChanging(value As String)
+    End Sub
+    Partial Private Sub Onnombre_puestoChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		Me._empleado = New EntitySet(Of empleado)(AddressOf Me.attach_empleado, AddressOf Me.detach_empleado)
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_puesto", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property id_puesto() As Integer
+		Get
+			Return Me._id_puesto
+		End Get
+		Set
+			If ((Me._id_puesto = value)  _
+						= false) Then
+				Me.Onid_puestoChanging(value)
+				Me.SendPropertyChanging
+				Me._id_puesto = value
+				Me.SendPropertyChanged("id_puesto")
+				Me.Onid_puestoChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_nombre_puesto", DbType:="VarChar(35) NOT NULL", CanBeNull:=false)>  _
+	Public Property nombre_puesto() As String
+		Get
+			Return Me._nombre_puesto
+		End Get
+		Set
+			If (String.Equals(Me._nombre_puesto, value) = false) Then
+				Me.Onnombre_puestoChanging(value)
+				Me.SendPropertyChanging
+				Me._nombre_puesto = value
+				Me.SendPropertyChanged("nombre_puesto")
+				Me.Onnombre_puestoChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="puesto_empleado", Storage:="_empleado", ThisKey:="id_puesto", OtherKey:="id_puesto")>  _
+	Public Property empleado() As EntitySet(Of empleado)
+		Get
+			Return Me._empleado
+		End Get
+		Set
+			Me._empleado.Assign(value)
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+	
+	Private Sub attach_empleado(ByVal entity As empleado)
+		Me.SendPropertyChanging
+		entity.puesto = Me
+	End Sub
+	
+	Private Sub detach_empleado(ByVal entity As empleado)
+		Me.SendPropertyChanging
+		entity.puesto = Nothing
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.usuario")>  _
+Partial Public Class usuario
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _id_usuario As Integer
+	
+	Private _usser As String
+	
+	Private _pass As String
+	
+	Private _rol_usuario As String
+	
+	Private _id_empleado As System.Nullable(Of Integer)
+	
+	Private _empleado As EntityRef(Of empleado)
+	
+    #Region "Definiciones de métodos de extensibilidad"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub Onid_usuarioChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onid_usuarioChanged()
+    End Sub
+    Partial Private Sub OnusserChanging(value As String)
+    End Sub
+    Partial Private Sub OnusserChanged()
+    End Sub
+    Partial Private Sub OnpassChanging(value As String)
+    End Sub
+    Partial Private Sub OnpassChanged()
+    End Sub
+    Partial Private Sub Onrol_usuarioChanging(value As String)
+    End Sub
+    Partial Private Sub Onrol_usuarioChanged()
+    End Sub
+    Partial Private Sub Onid_empleadoChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub Onid_empleadoChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		Me._empleado = CType(Nothing, EntityRef(Of empleado))
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_usuario", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property id_usuario() As Integer
+		Get
+			Return Me._id_usuario
+		End Get
+		Set
+			If ((Me._id_usuario = value)  _
+						= false) Then
+				Me.Onid_usuarioChanging(value)
+				Me.SendPropertyChanging
+				Me._id_usuario = value
+				Me.SendPropertyChanged("id_usuario")
+				Me.Onid_usuarioChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_usser", DbType:="VarChar(30)")>  _
+	Public Property usser() As String
+		Get
+			Return Me._usser
+		End Get
+		Set
+			If (String.Equals(Me._usser, value) = false) Then
+				Me.OnusserChanging(value)
+				Me.SendPropertyChanging
+				Me._usser = value
+				Me.SendPropertyChanged("usser")
+				Me.OnusserChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_pass", DbType:="VarChar(50)")>  _
+	Public Property pass() As String
+		Get
+			Return Me._pass
+		End Get
+		Set
+			If (String.Equals(Me._pass, value) = false) Then
+				Me.OnpassChanging(value)
+				Me.SendPropertyChanging
+				Me._pass = value
+				Me.SendPropertyChanged("pass")
+				Me.OnpassChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_rol_usuario", DbType:="VarChar(50)")>  _
+	Public Property rol_usuario() As String
+		Get
+			Return Me._rol_usuario
+		End Get
+		Set
+			If (String.Equals(Me._rol_usuario, value) = false) Then
+				Me.Onrol_usuarioChanging(value)
+				Me.SendPropertyChanging
+				Me._rol_usuario = value
+				Me.SendPropertyChanged("rol_usuario")
+				Me.Onrol_usuarioChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_empleado", DbType:="Int")>  _
+	Public Property id_empleado() As System.Nullable(Of Integer)
+		Get
+			Return Me._id_empleado
+		End Get
+		Set
+			If (Me._id_empleado.Equals(value) = false) Then
+				If Me._empleado.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
+				Me.Onid_empleadoChanging(value)
+				Me.SendPropertyChanging
+				Me._id_empleado = value
+				Me.SendPropertyChanged("id_empleado")
+				Me.Onid_empleadoChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="empleado_usuario", Storage:="_empleado", ThisKey:="id_empleado", OtherKey:="id_empleado", IsForeignKey:=true)>  _
+	Public Property empleado() As empleado
+		Get
+			Return Me._empleado.Entity
+		End Get
+		Set
+			Dim previousValue As empleado = Me._empleado.Entity
+			If ((Object.Equals(previousValue, value) = false)  _
+						OrElse (Me._empleado.HasLoadedOrAssignedValue = false)) Then
+				Me.SendPropertyChanging
+				If ((previousValue Is Nothing)  _
+							= false) Then
+					Me._empleado.Entity = Nothing
+					previousValue.usuario.Remove(Me)
+				End If
+				Me._empleado.Entity = value
+				If ((value Is Nothing)  _
+							= false) Then
+					value.usuario.Add(Me)
+					Me._id_empleado = value.id_empleado
+				Else
+					Me._id_empleado = CType(Nothing, Nullable(Of Integer))
+				End If
+				Me.SendPropertyChanged("empleado")
+			End If
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
 End Class
 
 <Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.empleado")>  _
@@ -127,17 +466,23 @@ Partial Public Class empleado
 	
 	Private _id_salario As System.Nullable(Of Integer)
 	
-	Private _id_horario As System.Nullable(Of Integer)
-	
 	Private _id_departamento As System.Nullable(Of Integer)
 	
 	Private _id_empresa As System.Nullable(Of Integer)
 	
 	Private _id_puesto As System.Nullable(Of Integer)
 	
-	Private _departamento As EntityRef(Of departamento)
+	Private _usuario As EntitySet(Of usuario)
 	
 	Private _puesto As EntityRef(Of puesto)
+	
+	Private _departamento As EntityRef(Of departamento)
+	
+	Private _salario As EntityRef(Of salario)
+	
+	Private _jornada As EntityRef(Of jornada)
+	
+	Private _empresa As EntityRef(Of empresa)
 	
     #Region "Definiciones de métodos de extensibilidad"
     Partial Private Sub OnLoaded()
@@ -198,10 +543,6 @@ Partial Public Class empleado
     End Sub
     Partial Private Sub Onid_salarioChanged()
     End Sub
-    Partial Private Sub Onid_horarioChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub Onid_horarioChanged()
-    End Sub
     Partial Private Sub Onid_departamentoChanging(value As System.Nullable(Of Integer))
     End Sub
     Partial Private Sub Onid_departamentoChanged()
@@ -218,8 +559,12 @@ Partial Public Class empleado
 	
 	Public Sub New()
 		MyBase.New
-		Me._departamento = CType(Nothing, EntityRef(Of departamento))
+		Me._usuario = New EntitySet(Of usuario)(AddressOf Me.attach_usuario, AddressOf Me.detach_usuario)
 		Me._puesto = CType(Nothing, EntityRef(Of puesto))
+		Me._departamento = CType(Nothing, EntityRef(Of departamento))
+		Me._salario = CType(Nothing, EntityRef(Of salario))
+		Me._jornada = CType(Nothing, EntityRef(Of jornada))
+		Me._empresa = CType(Nothing, EntityRef(Of empresa))
 		OnCreated
 	End Sub
 	
@@ -408,6 +753,9 @@ Partial Public Class empleado
 		End Get
 		Set
 			If (Me._id_jornada.Equals(value) = false) Then
+				If Me._jornada.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
 				Me.Onid_jornadaChanging(value)
 				Me.SendPropertyChanging
 				Me._id_jornada = value
@@ -424,27 +772,14 @@ Partial Public Class empleado
 		End Get
 		Set
 			If (Me._id_salario.Equals(value) = false) Then
+				If Me._salario.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
 				Me.Onid_salarioChanging(value)
 				Me.SendPropertyChanging
 				Me._id_salario = value
 				Me.SendPropertyChanged("id_salario")
 				Me.Onid_salarioChanged
-			End If
-		End Set
-	End Property
-	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_horario", DbType:="Int")>  _
-	Public Property id_horario() As System.Nullable(Of Integer)
-		Get
-			Return Me._id_horario
-		End Get
-		Set
-			If (Me._id_horario.Equals(value) = false) Then
-				Me.Onid_horarioChanging(value)
-				Me.SendPropertyChanging
-				Me._id_horario = value
-				Me.SendPropertyChanged("id_horario")
-				Me.Onid_horarioChanged
 			End If
 		End Set
 	End Property
@@ -475,6 +810,9 @@ Partial Public Class empleado
 		End Get
 		Set
 			If (Me._id_empresa.Equals(value) = false) Then
+				If Me._empresa.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
 				Me.Onid_empresaChanging(value)
 				Me.SendPropertyChanging
 				Me._id_empresa = value
@@ -499,6 +837,44 @@ Partial Public Class empleado
 				Me._id_puesto = value
 				Me.SendPropertyChanged("id_puesto")
 				Me.Onid_puestoChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="empleado_usuario", Storage:="_usuario", ThisKey:="id_empleado", OtherKey:="id_empleado")>  _
+	Public Property usuario() As EntitySet(Of usuario)
+		Get
+			Return Me._usuario
+		End Get
+		Set
+			Me._usuario.Assign(value)
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="puesto_empleado", Storage:="_puesto", ThisKey:="id_puesto", OtherKey:="id_puesto", IsForeignKey:=true)>  _
+	Public Property puesto() As puesto
+		Get
+			Return Me._puesto.Entity
+		End Get
+		Set
+			Dim previousValue As puesto = Me._puesto.Entity
+			If ((Object.Equals(previousValue, value) = false)  _
+						OrElse (Me._puesto.HasLoadedOrAssignedValue = false)) Then
+				Me.SendPropertyChanging
+				If ((previousValue Is Nothing)  _
+							= false) Then
+					Me._puesto.Entity = Nothing
+					previousValue.empleado.Remove(Me)
+				End If
+				Me._puesto.Entity = value
+				If ((value Is Nothing)  _
+							= false) Then
+					value.empleado.Add(Me)
+					Me._id_puesto = value.id_puesto
+				Else
+					Me._id_puesto = CType(Nothing, Nullable(Of Integer))
+				End If
+				Me.SendPropertyChanged("puesto")
 			End If
 		End Set
 	End Property
@@ -531,30 +907,86 @@ Partial Public Class empleado
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="puesto_empleado", Storage:="_puesto", ThisKey:="id_puesto", OtherKey:="id_puesto", IsForeignKey:=true)>  _
-	Public Property puesto() As puesto
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="salario_empleado", Storage:="_salario", ThisKey:="id_salario", OtherKey:="id_salario", IsForeignKey:=true)>  _
+	Public Property salario() As salario
 		Get
-			Return Me._puesto.Entity
+			Return Me._salario.Entity
 		End Get
 		Set
-			Dim previousValue As puesto = Me._puesto.Entity
+			Dim previousValue As salario = Me._salario.Entity
 			If ((Object.Equals(previousValue, value) = false)  _
-						OrElse (Me._puesto.HasLoadedOrAssignedValue = false)) Then
+						OrElse (Me._salario.HasLoadedOrAssignedValue = false)) Then
 				Me.SendPropertyChanging
 				If ((previousValue Is Nothing)  _
 							= false) Then
-					Me._puesto.Entity = Nothing
+					Me._salario.Entity = Nothing
 					previousValue.empleado.Remove(Me)
 				End If
-				Me._puesto.Entity = value
+				Me._salario.Entity = value
 				If ((value Is Nothing)  _
 							= false) Then
 					value.empleado.Add(Me)
-					Me._id_puesto = value.id_puesto
+					Me._id_salario = value.id_salario
 				Else
-					Me._id_puesto = CType(Nothing, Nullable(Of Integer))
+					Me._id_salario = CType(Nothing, Nullable(Of Integer))
 				End If
-				Me.SendPropertyChanged("puesto")
+				Me.SendPropertyChanged("salario")
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="jornada_empleado", Storage:="_jornada", ThisKey:="id_jornada", OtherKey:="id_jornada", IsForeignKey:=true)>  _
+	Public Property jornada() As jornada
+		Get
+			Return Me._jornada.Entity
+		End Get
+		Set
+			Dim previousValue As jornada = Me._jornada.Entity
+			If ((Object.Equals(previousValue, value) = false)  _
+						OrElse (Me._jornada.HasLoadedOrAssignedValue = false)) Then
+				Me.SendPropertyChanging
+				If ((previousValue Is Nothing)  _
+							= false) Then
+					Me._jornada.Entity = Nothing
+					previousValue.empleado.Remove(Me)
+				End If
+				Me._jornada.Entity = value
+				If ((value Is Nothing)  _
+							= false) Then
+					value.empleado.Add(Me)
+					Me._id_jornada = value.id_jornada
+				Else
+					Me._id_jornada = CType(Nothing, Nullable(Of Integer))
+				End If
+				Me.SendPropertyChanged("jornada")
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="empresa_empleado", Storage:="_empresa", ThisKey:="id_empresa", OtherKey:="id_empresa", IsForeignKey:=true)>  _
+	Public Property empresa() As empresa
+		Get
+			Return Me._empresa.Entity
+		End Get
+		Set
+			Dim previousValue As empresa = Me._empresa.Entity
+			If ((Object.Equals(previousValue, value) = false)  _
+						OrElse (Me._empresa.HasLoadedOrAssignedValue = false)) Then
+				Me.SendPropertyChanging
+				If ((previousValue Is Nothing)  _
+							= false) Then
+					Me._empresa.Entity = Nothing
+					previousValue.empleado.Remove(Me)
+				End If
+				Me._empresa.Entity = value
+				If ((value Is Nothing)  _
+							= false) Then
+					value.empleado.Add(Me)
+					Me._id_empresa = value.id_empresa
+				Else
+					Me._id_empresa = CType(Nothing, Nullable(Of Integer))
+				End If
+				Me.SendPropertyChanged("empresa")
 			End If
 		End Set
 	End Property
@@ -576,6 +1008,16 @@ Partial Public Class empleado
 			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
 		End If
 	End Sub
+	
+	Private Sub attach_usuario(ByVal entity As usuario)
+		Me.SendPropertyChanging
+		entity.empleado = Me
+	End Sub
+	
+	Private Sub detach_usuario(ByVal entity As usuario)
+		Me.SendPropertyChanging
+		entity.empleado = Nothing
+	End Sub
 End Class
 
 <Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.departamento")>  _
@@ -589,8 +1031,6 @@ Partial Public Class departamento
 	Private _nombre_dep As String
 	
 	Private _funcion_dep As String
-	
-	Private _fecha_ingreso As Date
 	
 	Private _empleado As EntitySet(Of empleado)
 	
@@ -612,10 +1052,6 @@ Partial Public Class departamento
     Partial Private Sub Onfuncion_depChanging(value As String)
     End Sub
     Partial Private Sub Onfuncion_depChanged()
-    End Sub
-    Partial Private Sub Onfecha_ingresoChanging(value As Date)
-    End Sub
-    Partial Private Sub Onfecha_ingresoChanged()
     End Sub
     #End Region
 	
@@ -674,23 +1110,6 @@ Partial Public Class departamento
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_fecha_ingreso", DbType:="Date NOT NULL")>  _
-	Public Property fecha_ingreso() As Date
-		Get
-			Return Me._fecha_ingreso
-		End Get
-		Set
-			If ((Me._fecha_ingreso = value)  _
-						= false) Then
-				Me.Onfecha_ingresoChanging(value)
-				Me.SendPropertyChanging
-				Me._fecha_ingreso = value
-				Me.SendPropertyChanged("fecha_ingreso")
-				Me.Onfecha_ingresoChanged
-			End If
-		End Set
-	End Property
-	
 	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="departamento_empleado", Storage:="_empleado", ThisKey:="id_departamento", OtherKey:="id_departamento")>  _
 	Public Property empleado() As EntitySet(Of empleado)
 		Get
@@ -730,15 +1149,17 @@ Partial Public Class departamento
 	End Sub
 End Class
 
-<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.puesto")>  _
-Partial Public Class puesto
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.salario")>  _
+Partial Public Class salario
 	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	
 	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
 	
-	Private _id_puesto As Integer
+	Private _id_salario As Integer
 	
-	Private _nombre_puesto As String
+	Private _tipo_salario As String
+	
+	Private _cantidad_salario As System.Nullable(Of Integer)
 	
 	Private _empleado As EntitySet(Of empleado)
 	
@@ -749,13 +1170,17 @@ Partial Public Class puesto
     End Sub
     Partial Private Sub OnCreated()
     End Sub
-    Partial Private Sub Onid_puestoChanging(value As Integer)
+    Partial Private Sub Onid_salarioChanging(value As Integer)
     End Sub
-    Partial Private Sub Onid_puestoChanged()
+    Partial Private Sub Onid_salarioChanged()
     End Sub
-    Partial Private Sub Onnombre_puestoChanging(value As String)
+    Partial Private Sub Ontipo_salarioChanging(value As String)
     End Sub
-    Partial Private Sub Onnombre_puestoChanged()
+    Partial Private Sub Ontipo_salarioChanged()
+    End Sub
+    Partial Private Sub Oncantidad_salarioChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub Oncantidad_salarioChanged()
     End Sub
     #End Region
 	
@@ -765,40 +1190,56 @@ Partial Public Class puesto
 		OnCreated
 	End Sub
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_puesto", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-	Public Property id_puesto() As Integer
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_salario", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property id_salario() As Integer
 		Get
-			Return Me._id_puesto
+			Return Me._id_salario
 		End Get
 		Set
-			If ((Me._id_puesto = value)  _
+			If ((Me._id_salario = value)  _
 						= false) Then
-				Me.Onid_puestoChanging(value)
+				Me.Onid_salarioChanging(value)
 				Me.SendPropertyChanging
-				Me._id_puesto = value
-				Me.SendPropertyChanged("id_puesto")
-				Me.Onid_puestoChanged
+				Me._id_salario = value
+				Me.SendPropertyChanged("id_salario")
+				Me.Onid_salarioChanged
 			End If
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_nombre_puesto", DbType:="VarChar(35) NOT NULL", CanBeNull:=false)>  _
-	Public Property nombre_puesto() As String
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_tipo_salario", DbType:="VarChar(30)")>  _
+	Public Property tipo_salario() As String
 		Get
-			Return Me._nombre_puesto
+			Return Me._tipo_salario
 		End Get
 		Set
-			If (String.Equals(Me._nombre_puesto, value) = false) Then
-				Me.Onnombre_puestoChanging(value)
+			If (String.Equals(Me._tipo_salario, value) = false) Then
+				Me.Ontipo_salarioChanging(value)
 				Me.SendPropertyChanging
-				Me._nombre_puesto = value
-				Me.SendPropertyChanged("nombre_puesto")
-				Me.Onnombre_puestoChanged
+				Me._tipo_salario = value
+				Me.SendPropertyChanged("tipo_salario")
+				Me.Ontipo_salarioChanged
 			End If
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="puesto_empleado", Storage:="_empleado", ThisKey:="id_puesto", OtherKey:="id_puesto")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_cantidad_salario", DbType:="Int")>  _
+	Public Property cantidad_salario() As System.Nullable(Of Integer)
+		Get
+			Return Me._cantidad_salario
+		End Get
+		Set
+			If (Me._cantidad_salario.Equals(value) = false) Then
+				Me.Oncantidad_salarioChanging(value)
+				Me.SendPropertyChanging
+				Me._cantidad_salario = value
+				Me.SendPropertyChanged("cantidad_salario")
+				Me.Oncantidad_salarioChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="salario_empleado", Storage:="_empleado", ThisKey:="id_salario", OtherKey:="id_salario")>  _
 	Public Property empleado() As EntitySet(Of empleado)
 		Get
 			Return Me._empleado
@@ -828,11 +1269,379 @@ Partial Public Class puesto
 	
 	Private Sub attach_empleado(ByVal entity As empleado)
 		Me.SendPropertyChanging
-		entity.puesto = Me
+		entity.salario = Me
 	End Sub
 	
 	Private Sub detach_empleado(ByVal entity As empleado)
 		Me.SendPropertyChanging
-		entity.puesto = Nothing
+		entity.salario = Nothing
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.jornada")>  _
+Partial Public Class jornada
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _id_jornada As Integer
+	
+	Private _tipo_jornadal As String
+	
+	Private _hora_jornada As System.Nullable(Of System.TimeSpan)
+	
+	Private _empleado As EntitySet(Of empleado)
+	
+    #Region "Definiciones de métodos de extensibilidad"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub Onid_jornadaChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onid_jornadaChanged()
+    End Sub
+    Partial Private Sub Ontipo_jornadalChanging(value As String)
+    End Sub
+    Partial Private Sub Ontipo_jornadalChanged()
+    End Sub
+    Partial Private Sub Onhora_jornadaChanging(value As System.Nullable(Of System.TimeSpan))
+    End Sub
+    Partial Private Sub Onhora_jornadaChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		Me._empleado = New EntitySet(Of empleado)(AddressOf Me.attach_empleado, AddressOf Me.detach_empleado)
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_jornada", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property id_jornada() As Integer
+		Get
+			Return Me._id_jornada
+		End Get
+		Set
+			If ((Me._id_jornada = value)  _
+						= false) Then
+				Me.Onid_jornadaChanging(value)
+				Me.SendPropertyChanging
+				Me._id_jornada = value
+				Me.SendPropertyChanged("id_jornada")
+				Me.Onid_jornadaChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_tipo_jornadal", DbType:="VarChar(30)")>  _
+	Public Property tipo_jornadal() As String
+		Get
+			Return Me._tipo_jornadal
+		End Get
+		Set
+			If (String.Equals(Me._tipo_jornadal, value) = false) Then
+				Me.Ontipo_jornadalChanging(value)
+				Me.SendPropertyChanging
+				Me._tipo_jornadal = value
+				Me.SendPropertyChanged("tipo_jornadal")
+				Me.Ontipo_jornadalChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_hora_jornada", DbType:="Time")>  _
+	Public Property hora_jornada() As System.Nullable(Of System.TimeSpan)
+		Get
+			Return Me._hora_jornada
+		End Get
+		Set
+			If (Me._hora_jornada.Equals(value) = false) Then
+				Me.Onhora_jornadaChanging(value)
+				Me.SendPropertyChanging
+				Me._hora_jornada = value
+				Me.SendPropertyChanged("hora_jornada")
+				Me.Onhora_jornadaChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="jornada_empleado", Storage:="_empleado", ThisKey:="id_jornada", OtherKey:="id_jornada")>  _
+	Public Property empleado() As EntitySet(Of empleado)
+		Get
+			Return Me._empleado
+		End Get
+		Set
+			Me._empleado.Assign(value)
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+	
+	Private Sub attach_empleado(ByVal entity As empleado)
+		Me.SendPropertyChanging
+		entity.jornada = Me
+	End Sub
+	
+	Private Sub detach_empleado(ByVal entity As empleado)
+		Me.SendPropertyChanging
+		entity.jornada = Nothing
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.empresa")>  _
+Partial Public Class empresa
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _id_empresa As Integer
+	
+	Private _nombre_empresa As String
+	
+	Private _NIT_empresa As System.Nullable(Of Integer)
+	
+	Private _Pais As String
+	
+	Private _poblacion As String
+	
+	Private _domicilio As String
+	
+	Private _telefono As System.Nullable(Of Integer)
+	
+	Private _correo As String
+	
+	Private _empleado As EntitySet(Of empleado)
+	
+    #Region "Definiciones de métodos de extensibilidad"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub Onid_empresaChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onid_empresaChanged()
+    End Sub
+    Partial Private Sub Onnombre_empresaChanging(value As String)
+    End Sub
+    Partial Private Sub Onnombre_empresaChanged()
+    End Sub
+    Partial Private Sub OnNIT_empresaChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnNIT_empresaChanged()
+    End Sub
+    Partial Private Sub OnPaisChanging(value As String)
+    End Sub
+    Partial Private Sub OnPaisChanged()
+    End Sub
+    Partial Private Sub OnpoblacionChanging(value As String)
+    End Sub
+    Partial Private Sub OnpoblacionChanged()
+    End Sub
+    Partial Private Sub OndomicilioChanging(value As String)
+    End Sub
+    Partial Private Sub OndomicilioChanged()
+    End Sub
+    Partial Private Sub OntelefonoChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OntelefonoChanged()
+    End Sub
+    Partial Private Sub OncorreoChanging(value As String)
+    End Sub
+    Partial Private Sub OncorreoChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		Me._empleado = New EntitySet(Of empleado)(AddressOf Me.attach_empleado, AddressOf Me.detach_empleado)
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_id_empresa", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property id_empresa() As Integer
+		Get
+			Return Me._id_empresa
+		End Get
+		Set
+			If ((Me._id_empresa = value)  _
+						= false) Then
+				Me.Onid_empresaChanging(value)
+				Me.SendPropertyChanging
+				Me._id_empresa = value
+				Me.SendPropertyChanged("id_empresa")
+				Me.Onid_empresaChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_nombre_empresa", DbType:="VarChar(50)")>  _
+	Public Property nombre_empresa() As String
+		Get
+			Return Me._nombre_empresa
+		End Get
+		Set
+			If (String.Equals(Me._nombre_empresa, value) = false) Then
+				Me.Onnombre_empresaChanging(value)
+				Me.SendPropertyChanging
+				Me._nombre_empresa = value
+				Me.SendPropertyChanged("nombre_empresa")
+				Me.Onnombre_empresaChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_NIT_empresa", DbType:="Int")>  _
+	Public Property NIT_empresa() As System.Nullable(Of Integer)
+		Get
+			Return Me._NIT_empresa
+		End Get
+		Set
+			If (Me._NIT_empresa.Equals(value) = false) Then
+				Me.OnNIT_empresaChanging(value)
+				Me.SendPropertyChanging
+				Me._NIT_empresa = value
+				Me.SendPropertyChanged("NIT_empresa")
+				Me.OnNIT_empresaChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Pais", DbType:="VarChar(50)")>  _
+	Public Property Pais() As String
+		Get
+			Return Me._Pais
+		End Get
+		Set
+			If (String.Equals(Me._Pais, value) = false) Then
+				Me.OnPaisChanging(value)
+				Me.SendPropertyChanging
+				Me._Pais = value
+				Me.SendPropertyChanged("Pais")
+				Me.OnPaisChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_poblacion", DbType:="VarChar(30)")>  _
+	Public Property poblacion() As String
+		Get
+			Return Me._poblacion
+		End Get
+		Set
+			If (String.Equals(Me._poblacion, value) = false) Then
+				Me.OnpoblacionChanging(value)
+				Me.SendPropertyChanging
+				Me._poblacion = value
+				Me.SendPropertyChanged("poblacion")
+				Me.OnpoblacionChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_domicilio", DbType:="VarChar(50)")>  _
+	Public Property domicilio() As String
+		Get
+			Return Me._domicilio
+		End Get
+		Set
+			If (String.Equals(Me._domicilio, value) = false) Then
+				Me.OndomicilioChanging(value)
+				Me.SendPropertyChanging
+				Me._domicilio = value
+				Me.SendPropertyChanged("domicilio")
+				Me.OndomicilioChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_telefono", DbType:="Int")>  _
+	Public Property telefono() As System.Nullable(Of Integer)
+		Get
+			Return Me._telefono
+		End Get
+		Set
+			If (Me._telefono.Equals(value) = false) Then
+				Me.OntelefonoChanging(value)
+				Me.SendPropertyChanging
+				Me._telefono = value
+				Me.SendPropertyChanged("telefono")
+				Me.OntelefonoChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_correo", DbType:="VarChar(50)")>  _
+	Public Property correo() As String
+		Get
+			Return Me._correo
+		End Get
+		Set
+			If (String.Equals(Me._correo, value) = false) Then
+				Me.OncorreoChanging(value)
+				Me.SendPropertyChanging
+				Me._correo = value
+				Me.SendPropertyChanged("correo")
+				Me.OncorreoChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="empresa_empleado", Storage:="_empleado", ThisKey:="id_empresa", OtherKey:="id_empresa")>  _
+	Public Property empleado() As EntitySet(Of empleado)
+		Get
+			Return Me._empleado
+		End Get
+		Set
+			Me._empleado.Assign(value)
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+	
+	Private Sub attach_empleado(ByVal entity As empleado)
+		Me.SendPropertyChanging
+		entity.empresa = Me
+	End Sub
+	
+	Private Sub detach_empleado(ByVal entity As empleado)
+		Me.SendPropertyChanging
+		entity.empresa = Nothing
 	End Sub
 End Class

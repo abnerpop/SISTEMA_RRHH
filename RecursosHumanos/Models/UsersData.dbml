@@ -1,5 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Recursos_H" Class="UsersDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-CMOK118\SQLEXPRESS;Initial Catalog=Recursos_H;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Recursos_HConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.puesto" Member="puesto">
+    <Type Name="puesto">
+      <Column Name="id_puesto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre_puesto" Type="System.String" DbType="VarChar(35) NOT NULL" CanBeNull="false" />
+      <Association Name="puesto_empleado" Member="empleado" ThisKey="id_puesto" OtherKey="id_puesto" Type="empleado" />
+    </Type>
+  </Table>
+  <Table Name="dbo.usuario" Member="usuario">
+    <Type Name="usuario">
+      <Column Name="id_usuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="usser" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="pass" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="rol_usuario" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id_empleado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="empleado_usuario" Member="empleado" ThisKey="id_empleado" OtherKey="id_empleado" Type="empleado" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.empleado" Member="empleado">
     <Type Name="empleado">
       <Column Name="id_empleado" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -15,12 +32,15 @@
       <Column Name="estado_civil" Type="System.String" DbType="VarChar(7)" CanBeNull="true" />
       <Column Name="id_jornada" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_salario" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="id_horario" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_departamento" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_empresa" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="id_puesto" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="departamento_empleado" Member="departamento" ThisKey="id_departamento" OtherKey="id_departamento" Type="departamento" IsForeignKey="true" />
+      <Association Name="empleado_usuario" Member="usuario" ThisKey="id_empleado" OtherKey="id_empleado" Type="usuario" />
       <Association Name="puesto_empleado" Member="puesto" ThisKey="id_puesto" OtherKey="id_puesto" Type="puesto" IsForeignKey="true" />
+      <Association Name="departamento_empleado" Member="departamento" ThisKey="id_departamento" OtherKey="id_departamento" Type="departamento" IsForeignKey="true" />
+      <Association Name="salario_empleado" Member="salario" ThisKey="id_salario" OtherKey="id_salario" Type="salario" IsForeignKey="true" />
+      <Association Name="jornada_empleado" Member="jornada" ThisKey="id_jornada" OtherKey="id_jornada" Type="jornada" IsForeignKey="true" />
+      <Association Name="empresa_empleado" Member="empresa" ThisKey="id_empresa" OtherKey="id_empresa" Type="empresa" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.departamento" Member="departamento">
@@ -28,15 +48,36 @@
       <Column Name="id_departamento" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="nombre_dep" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
       <Column Name="funcion_dep" Type="System.String" DbType="VarChar(45) NOT NULL" CanBeNull="false" />
-      <Column Name="fecha_ingreso" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Association Name="departamento_empleado" Member="empleado" ThisKey="id_departamento" OtherKey="id_departamento" Type="empleado" />
     </Type>
   </Table>
-  <Table Name="dbo.puesto" Member="puesto">
-    <Type Name="puesto">
-      <Column Name="id_puesto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="nombre_puesto" Type="System.String" DbType="VarChar(35) NOT NULL" CanBeNull="false" />
-      <Association Name="puesto_empleado" Member="empleado" ThisKey="id_puesto" OtherKey="id_puesto" Type="empleado" />
+  <Table Name="dbo.salario" Member="salario">
+    <Type Name="salario">
+      <Column Name="id_salario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tipo_salario" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="cantidad_salario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="salario_empleado" Member="empleado" ThisKey="id_salario" OtherKey="id_salario" Type="empleado" />
+    </Type>
+  </Table>
+  <Table Name="dbo.jornada" Member="jornada">
+    <Type Name="jornada">
+      <Column Name="id_jornada" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tipo_jornadal" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="hora_jornada" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Association Name="jornada_empleado" Member="empleado" ThisKey="id_jornada" OtherKey="id_jornada" Type="empleado" />
+    </Type>
+  </Table>
+  <Table Name="dbo.empresa" Member="empresa">
+    <Type Name="empresa">
+      <Column Name="id_empresa" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre_empresa" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NIT_empresa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Pais" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="poblacion" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="domicilio" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="telefono" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="correo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="empresa_empleado" Member="empleado" ThisKey="id_empresa" OtherKey="id_empresa" Type="empleado" />
     </Type>
   </Table>
 </Database>

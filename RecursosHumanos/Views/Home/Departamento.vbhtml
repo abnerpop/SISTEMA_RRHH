@@ -1,54 +1,48 @@
-﻿@ModelType IEnumerable(Of RecursosHumanos.DepartaDatosModel)
-
-@Code
-    Layout = Nothing
+﻿@Code
+    Html.RenderPartial("Menu")
 End Code
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Departamento</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-        @Html.ActionLink("INICIO", "Index")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(Function(model) model.NOMBRE_DEP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(Function(model) model.FUNCION_DEP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(Function(model) model.FECHA_INGRESO)
-            </th>
-            <th></th>
-        </tr>
-    
-    @For Each item In Model
-        @<tr>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.NOMBRE_DEP)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.FUNCION_DEP)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.FECHA_INGRESO)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", New With {.id = item.PrimaryKey}) |
-                @Html.ActionLink("Details", "Details", New With {.id = item.PrimaryKey}) |
-                @Html.ActionLink("Delete", "Delete", New With {.id = item.PrimaryKey})*@
-            </td>
-        </tr>
-    Next
-    
-    </table>
-</body>
-</html>
+<nav class="navbar navbar-dark bg-primary justify-content-center ">
+    <a class="navbar-brand" href="Departamento">
+
+        <h5 class="display-5 ">Departamento</h5>
+    </a>
+</nav>
+
+<ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link" href="MostrarDepartamento">Buscar</a>
+    </li>
+   
+
+</ul>
+
+
+<form action="../Home/AgregarDepartamento" method="post">
+
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="dep_nombre" placeholder="Nombre Departamento">
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="dep_funcion" placeholder="Funcion Departamento">
+        </div>
+
+
+
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary mt-5">Registrar</button>
+</form>
+
+
+
+
+
+
+@Code
+    Html.RenderPartial("Fooder")
+End Code

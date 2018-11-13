@@ -1,48 +1,46 @@
-﻿@ModelType IEnumerable(Of RecursosHumanos.PuestosDatosModel)
-
-@Code
-    Layout = Nothing
+﻿@Code
+    Html.RenderPartial("Menu")
 End Code
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Puesto</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-        @Html.ActionLink("INICIO", "Index")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(Function(model) model.ID_PUESTO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(Function(model) model.NOMBRE_PUESTO)
-            </th>
-            <th></th>
-        </tr>
-    
-    @For Each item In Model
-        @<tr>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.ID_PUESTO)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.NOMBRE_PUESTO)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", New With {.id = item.PrimaryKey}) |
-                @Html.ActionLink("Details", "Details", New With {.id = item.PrimaryKey}) |
-                @Html.ActionLink("Delete", "Delete", New With {.id = item.PrimaryKey})*@
-            </td>
-        </tr>
-    Next
-    
-    </table>
-</body>
-</html>
+<nav class="navbar navbar-dark bg-primary justify-content-center ">
+    <a class="navbar-brand" href="Puesto">
+
+        <h5 class="display-5 ">Puesto</h5>
+    </a>
+</nav>
+
+<ul class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link" href="MostrarPuesto">Buscar</a>
+    </li>
+ 
+
+</ul>
+
+
+
+<form action="../Home/AgregarPuesto" method="post">
+
+    <div class="form-row ">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="pue_nombre" placeholder="Nombre Puesto">
+        </div>
+     
+
+
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary mt-5">Registrar</button>
+</form>
+
+
+
+
+
+
+@Code
+    Html.RenderPartial("Fooder")
+End Code
